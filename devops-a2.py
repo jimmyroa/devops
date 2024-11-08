@@ -17,7 +17,7 @@ employee_monthly_hours = 0
 
 # METHODS DEFINITION:
     
-def validate_employee_position_and_calculate(employee_position, employee_monthly_hours):
+def validate_employee_position_and_calculate(employee_position, employee_monthly_hours, new_paramter):
 
     if employee_position.lower() == 'chef':             
         result = calculate_net_monthly_employee_income(CHEF_HOURLY_RATE, employee_monthly_hours)       
