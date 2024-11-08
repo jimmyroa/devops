@@ -27,7 +27,7 @@ def validate_employee_position_and_calculate(employee_position, employee_monthly
     elif employee_position.lower() == 'waiter':       
         result = calculate_net_monthly_employee_income(WAITER_HOURLY_RATE, employee_monthly_hours)    
         print(str(employee_position.upper()) + "\n" 
-            "Net monthly income:" + str(result))
+            "Net monthly income:" + str(results))
         
     elif employee_position.lower() == 'delivery':       
         result = calculate_net_monthly_employee_income(DELIVERY_HOURLY_RATE, employee_monthly_hours)           
