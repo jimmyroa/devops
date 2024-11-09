@@ -48,19 +48,18 @@ def calculate_net_monthly_employee_income(hourly_rate, employee_monthly_hours):
     gross_income = employee_monthly_hours * hourly_rate
     tax_deducted = gross_income * FIXED_INCOME_TAX / 100
     net_monthly_employee_income = gross_income - tax_deducted  
-    
     return net_monthly_employee_income
     
              
 
-# USER INPUT:
-employee_position = input("Enter the position of employee : chef | waiter | delivery | cleaner :")
-employee_monthly_hours_float = float(input("Enter the number of monthly hours the employee worked: Don't use commas "))  
-employee_monthly_hours = int(round(employee_monthly_hours_float))
+# USER INPUT (guarded for direct execution only):
+if __name__ == "__main__":
+    employee_position = input("Enter the position of employee : chef | waiter | delivery | cleaner :")
+    employee_monthly_hours_float = float(input("Enter the number of monthly hours the employee worked: Don't use commas "))  
+    employee_monthly_hours = int(round(employee_monthly_hours_float))
+    validate_employee_position_and_calculate(employee_position, employee_monthly_hours)
 
  
 
-# Method Execution:
-validate_employee_position_and_calculate(employee_position, employee_monthly_hours)
 
 
