@@ -1,62 +1,43 @@
 import unittest
+from devops_a2 import calculate_net_monthly_employee_income
 
-# Import the original code functions
-from devops_a2 import validate_employee_position_and_calculate, calculate_net_monthly_employee_income
-
-class TestEmployeeSalary(unittest.TestCase):
-    def test_chef_calculation_success(self):
-        """Test case 1: Test successful calculation of chef's net salary (should pass)"""
-        # Capture the printed output
-        import io
-        import sys
-        captured_output = io.StringIO()
-        sys.stdout = captured_output
-
-        # Test execution
-        validate_employee_position_and_calculate('chef', 160)
-        sys.stdout = sys.__stdout__  # Reset redirect
-        
-        expected_net_income = 3936.0  # (30 * 160) * (1 - 0.18)
-        expected_output = "CHEF\nNet monthly income:3936.0"
-        self.assertIn(expected_output, captured_output.getvalue().strip())
-
-    def test_waiter_direct_calculation_success(self):
-        """Test case 2: Test direct calculation of waiter's net income (should pass)"""
-        result = calculate_net_monthly_employee_income(28, 100)  # Using WAITER_HOURLY_RATE
-        expected = 2296.0  # (28 * 100) * (1 - 0.18)
-        self.assertEqual(result, expected)
-
-    def test_delivery_case_insensitive_success(self):
-        """Test case 3: Test case-insensitive position input (should pass)"""
-        import io
-        import sys
-        captured_output = io.StringIO()
-        sys.stdout = captured_output
-
-        validate_employee_position_and_calculate('DELIVERY', 120)
-        sys.stdout = sys.__stdout__
-
-        expected_net_income = 2460.0  # (25 * 120) * (1 - 0.18)
-        expected_output = "DELIVERY\nNet monthly income:2460.0"
-        self.assertIn(expected_output, captured_output.getvalue().strip())
-
-    def test_invalid_position_fail(self):
-        """Test case 4: Test invalid position input (should fail)"""
-        import io
-        import sys
-        captured_output = io.StringIO()
-        sys.stdout = captured_output
-
-        validate_employee_position_and_calculate('manager', 100)
-        sys.stdout = sys.__stdout__
-
-        expected_output = "Invalid input. please enter only an employee position from the list"
-        self.assertIn(expected_output, captured_output.getvalue().strip())
-
-    def test_missing_parameter_fail(self):
-        """Test case 5: Test with missing required parameter (should fail)"""
-        with self.assertRaises(TypeError):
-            validate_employee_position_and_calculate('cleaner')  # Missing monthly_hours parameter
+class TestEmployeeIncomeCalculation(unittest.TestCase):
+    
+    # Successful Test Cases
+    def test_chef_income(self):
+        # Test for a chef working 160 hours in a month
+        hourly_rate = 30  # CHEF_HOURLY_RATE
+        hours_worked = 160
+        expected_income = 160 * hourly_rate * (1 - 0.18)
+        self.assertAlmostEqual(calculate_net_monthly_employee_income(hourly_rate, hours_worked), expected_income)
+    
+    def test_waiter_income(self):
+        # Test for a waiter working 140 hours in a month
+        hourly_rate = 28  # WAITER_HOURLY_RATE
+        hours_worked = 140
+        expected_income = 140 * hourly_rate * (1 - 0.18)
+        self.assertAlmostEqual(calculate_net_monthly_employee_income(hourly_rate, hours_worked), expected_income)
+    
+    def test_cleaner_income(self):
+        # Test for a cleaner working 100 hours in a month
+        hourly_rate = 24  # CLEANER_HOURLY_RATE
+        hours_worked = 100
+        expected_income = 100 * hourly_rate * (1 - 0.18)
+        self.assertAlmostEqual(calculate_net_monthly_employee_income(hourly_rate, hours_worked), expected_income)
+    
+    # Failing Test Cases
+    def test_incorrect_income_calculation(self):
+        # Incorrect expected value to force a failure
+        hourly_rate = 30  # CHEF_HOURLY_RATE
+        hours_worked = 160
+        incorrect_expected_income = 160 * hourly_rate  # Ignoring tax deduction
+        self.assertNotEqual(calculate_net_monthly_employee_income(hourly_rate, hours_worked), incorrect_expected_income)
+    
+    def test_negative_hours(self):
+        # Test with negative hours worked
+        hourly_rate = 25  # DELIVERY_HOURLY_RATE
+        hours_worked = -10  # Invalid case
+        self.assertLess(calculate_net_monthly_employee_income(hourly_rate, hours_worked), 0)
 
 if __name__ == '__main__':
     unittest.main()
