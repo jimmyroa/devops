@@ -24,15 +24,16 @@ pipeline {
             }
         }
 
-        stage('Debug PATH') {
+        /*stage('Debug PATH') {
             steps {
                 bat 'echo %PATH%'
             }
-        }
+        }*/
         
          stage('Debug Batch Script') {
             steps {
-                bat '"C:\\Windows\\System32\\cmd.exe" /c type C:\\WINDOWS\\TEMP\\jenkins*.bat'
+                //bat '"C:\\Windows\\System32\\cmd.exe" /c type C:\\WINDOWS\\TEMP\\jenkins*.bat'
+                  bat '"C:\\Windows\\System32\\cmd.exe" /c echo %PATH%'
             }
          }
         
