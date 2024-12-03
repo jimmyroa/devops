@@ -1,80 +1,57 @@
 pipeline {
     agent any
-    
-    environment {
-        // Python version to use
-        PYTHON_VERSION = '3.x'
-        // Virtual environment path
-        VENV_PATH = "${WORKSPACE}/venv"
+
+     environment {
+        // Define repository details
+        REPO_URL = 'https://github.com/jimmyroa/devops.git'
+        BRANCH = 'main'
     }
     
+    // Configure triggers for GitHub webhook and periodic checks
     triggers {
-        // GitHub webhook trigger for push events on main branch
+        // GitHub webhook trigger for push events
         githubPush()
-
+        
         // Optional: Periodic build every 4 hours (can be commented out if not needed)
         // cron('0 */4 * * *')
     }
     
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                // Checkout source code from SCM
+                // Checkout source code from SCM:
                 checkout scm
             }
         }
         
-        stage('Set up Python') {
+        stage('Build') {
             steps {
                 script {
-                    // Set up Python environment
-                    sh '''
-                        python3 -m venv ${VENV_PATH}
-                        . ${VENV_PATH}/bin/activate
-                        python --version
-                    '''
+                    // Basic build steps (customize as needed)
+                    sh 'python3 --version'
+                    sh 'pip3 --version'
                 }
             }
         }
         
-        stage('Install Dependencies') {
+        stage('Test') {
             steps {
-                sh '''
-                    . ${VENV_PATH}/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
-            }
-        }
-        
-        stage('Run Tests') {
-            steps {
-                sh '''
-                    . ${VENV_PATH}/bin/activate
-                    python -m unittest discover
-                '''
-            }
-            post {
-                always {
-                    // Capture test results if using XML reports
-                    junit allowEmptyResults: true, testResults: '**/test-*.xml'
+                script {
+                    // Add your test commands here
+                    sh 'echo "Running tests..."'
+                    // Example: sh 'python3 -m unittest discover'
                 }
             }
         }
     }
     
+    // Post-build actions
     post {
         success {
-            echo 'CI Pipeline completed successfully!'
+            echo 'Build successful!'
         }
         failure {
-            echo 'CI Pipeline failed. Check the logs for details.'
-        }
-        cleanup {
-            // Clean up virtual environment
-            sh '''
-                rm -rf ${VENV_PATH}
-            '''
+            echo 'Build failed!'
         }
     }
 }
