@@ -27,9 +27,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Basic build steps (customize as needed)
-                    sh 'python3 --version'
-                    sh 'pip3 --version'
+                     // Run the Python script
+                    bat 'python devops_a2.py'
                 }
             }
         }
@@ -37,9 +36,8 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Add your test commands here
-                    sh 'echo "Running tests..."'
-                    // Example: sh 'python3 -m unittest discover'
+                    // Run the unit tests
+                    bat 'python test_employee_salary.py'
                 }
             }
         }
@@ -47,11 +45,14 @@ pipeline {
     
     // Post-build actions
     post {
+        always {
+            echo 'Pipeline completed.'
+        }
         success {
-            echo 'Build successful!'
+            echo 'Build and tests succeeded!'
         }
         failure {
-            echo 'Build failed!'
+            echo 'Pipeline failed.'
         }
     }
 }
