@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                      // Run the Python script
-                    bat 'python devops_a2.py'
+                    bat '"C:\\Python311\\python.exe" devops_a2.py'
                 }
             }
         }
