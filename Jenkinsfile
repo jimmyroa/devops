@@ -2,17 +2,17 @@ pipeline {
     agent any
 
      environment {
-        // Define repository details
+        // Define repository details:
         REPO_URL = 'https://github.com/jimmyroa/devops.git'
         BRANCH = 'main'
     }
     
     // Configure triggers for GitHub webhook and periodic checks
     triggers {
-        // GitHub webhook trigger for push events
+        // GitHub webhook trigger for push events:
         githubPush()
         
-        // Optional: Periodic build every 4 hours (can be commented out if not needed)
+        // Optional: Periodic build every 4 hours
         // cron('0 */4 * * *')
     }
     
@@ -23,12 +23,18 @@ pipeline {
                 checkout scm
             }
         }
+
+         stage('Debug Batch Script') {
+            steps {
+                bat 'type C:\\WINDOWS\\TEMP\\jenkins*.bat'
+            }
+         }
         
         stage('Build') {
             steps {
                 script {
-                     // Run the Python script
-                    bat '"C:\\Python311\\python.exe" devops_a2.py'
+                     // Run the Python script:
+                    bat 'python devops_a2.py'
                 }
             }
         }
