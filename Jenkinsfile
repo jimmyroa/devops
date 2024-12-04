@@ -13,7 +13,7 @@ pipeline {
         githubPush()
 
         // Fallback: Poll for SCM changes every 2 minutes
-        //cron('H/2 * * * *')
+        //cron('H/2 * * * *') // Note: commented out since it's overloading the GitHub API rate-limiting issues, which is causing the pipeline to fail when trying to interact with the GitHub repository
     }
     
     stages {
