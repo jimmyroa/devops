@@ -1,7 +1,7 @@
-pipeline {
+pipeline { 
     agent any
 
-     environment {
+    environment {
         // Define repository details:
         REPO_URL = 'https://github.com/jimmyroa/devops.git'
         BRANCH = 'main'
@@ -24,19 +24,17 @@ pipeline {
             }
         }
 
-        
-         stage('Debug Batch Script') {
+        stage('Debug Batch Script') {
             steps {
-                // bat 'type C:\\WINDOWS\\TEMP\\jenkins*.bat' // ERROR
-                // bat '"C:\\Windows\\System32\\cmd.exe" /c type C:\\WINDOWS\\TEMP\\jenkins*.bat' // ERROR
-                   bat '"C:\\Windows\\System32\\cmd.exe" /c echo %PATH%' //Test OK: Setting Global Environment Variables
+                // Test setting global environment variables:
+                bat '"C:\\Windows\\System32\\cmd.exe" /c echo %PATH%'
             }
-         }
+        }
         
         stage('Build') {
             steps {
                 script {
-                     // Run the Python script:
+                    // Run the Python script:
                     bat 'python devops_a2.py'
                 }
             }
@@ -45,13 +43,13 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run the unit tests
+                    // Run the unit tests:
                     bat 'python test_employee_salary.py'
                 }
             }
         }
 
-         stage('Package') {
+        stage('Package') {
             steps {
                 script {
                     // Install pyinstaller if not already installed:
@@ -62,8 +60,8 @@ pipeline {
                 }
             }
         }
-
-        
+    }
+    
     // Post-build actions
     post {
         always {
@@ -76,5 +74,4 @@ pipeline {
             echo 'Pipeline failed.'
         }
     }
- }
 }
