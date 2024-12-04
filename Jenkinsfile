@@ -34,7 +34,7 @@ pipeline {
             steps {
                 // bat 'type C:\\WINDOWS\\TEMP\\jenkins*.bat' // ERROR
                 // bat '"C:\\Windows\\System32\\cmd.exe" /c type C:\\WINDOWS\\TEMP\\jenkins*.bat' // ERROR
-                   bat '"C:\\Windows\\System32\\cmd.exe" /c echo %PATH%' //testing change the user with permission to read CMD
+                   bat '"C:\\Windows\\System32\\cmd.exe" /c echo %PATH%' //testing Setting Global Environment Variables
             }
          }
         
