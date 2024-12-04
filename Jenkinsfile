@@ -50,8 +50,20 @@ pipeline {
                 }
             }
         }
-    }
-    
+
+         stage('Package') {
+            steps {
+                script {
+                    // Install pyinstaller if not already installed:
+                    bat 'pip install pyinstaller'
+                    
+                    // Create a standalone executable:
+                    bat 'pyinstaller --onefile devops_a2.py'
+                }
+            }
+        }
+
+        
     // Post-build actions
     post {
         always {
