@@ -33,14 +33,14 @@ pipeline {
             }
          }
         
-        /*stage('Build') {
+        stage('Build') {
             steps {
                 script {
                      // Run the Python script:
                     bat 'python devops_a2.py'
                 }
             }
-        }*/
+        }
         
         stage('Test') {
             steps {
