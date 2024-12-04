@@ -13,7 +13,7 @@ pipeline {
         githubPush()
 
         // Fallback: Poll for SCM changes every 2 minutes
-        cron('H/2 * * * *')
+        //cron('H/2 * * * *')
     }
     
     stages {
