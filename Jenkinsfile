@@ -56,7 +56,8 @@ pipeline {
                     bat 'pip install pyinstaller'
                     
                     // Create a standalone executable:
-                    bat 'pyinstaller --onefile devops_a2.py'
+                    // bat 'pyinstaller --onefile devops_a2.py'  //Error:'pyinstaller' is not recognized as an internal or external command, operable program or batch file.
+                     bat 'python -m PyInstaller --onefile devops_a2.py' //Test
                 }
             }
         }
