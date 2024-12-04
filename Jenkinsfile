@@ -32,8 +32,9 @@ pipeline {
         
          stage('Debug Batch Script') {
             steps {
-                //bat '"C:\\Windows\\System32\\cmd.exe" /c type C:\\WINDOWS\\TEMP\\jenkins*.bat'
-                  bat '"C:\\Windows\\System32\\cmd.exe" /c echo %PATH%'
+                // bat 'type C:\\WINDOWS\\TEMP\\jenkins*.bat' // ERROR
+                // bat '"C:\\Windows\\System32\\cmd.exe" /c type C:\\WINDOWS\\TEMP\\jenkins*.bat' // ERROR
+                   bat '"C:\\Windows\\System32\\cmd.exe" /c echo %PATH%'
             }
          }
         
