@@ -24,28 +24,23 @@ pipeline {
             }
         }
 
-        /*stage('Debug PATH') {
-            steps {
-                bat 'echo %PATH%'
-            }
-        }*/
         
          stage('Debug Batch Script') {
             steps {
                 // bat 'type C:\\WINDOWS\\TEMP\\jenkins*.bat' // ERROR
                 // bat '"C:\\Windows\\System32\\cmd.exe" /c type C:\\WINDOWS\\TEMP\\jenkins*.bat' // ERROR
-                   bat '"C:\\Windows\\System32\\cmd.exe" /c echo %PATH%' //testing Setting Global Environment Variables
+                   bat '"C:\\Windows\\System32\\cmd.exe" /c echo %PATH%' //Test OK: Setting Global Environment Variables
             }
          }
         
-        stage('Build') {
+        /*stage('Build') {
             steps {
                 script {
                      // Run the Python script:
                     bat 'python devops_a2.py'
                 }
             }
-        }
+        }*/
         
         stage('Test') {
             steps {
