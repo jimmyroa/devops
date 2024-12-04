@@ -7,13 +7,13 @@ pipeline {
         BRANCH = 'main'
     }
     
-    // Configure triggers for GitHub webhook and periodic checks
+    // Configure triggers for GitHub webhook and periodic checks:
     triggers {
-        // GitHub webhook trigger for push events:
+        // Trigger builds using GitHub webhooks for immediate reaction to updates
         githubPush()
-        
-        // Optional: Periodic build every 4 hours
-        // cron('0 */4 * * *')
+
+        // Fallback: Poll for SCM changes every 2 minutes
+        cron('H/2 * * * *')
     }
     
     stages {
